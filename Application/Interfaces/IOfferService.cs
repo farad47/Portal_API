@@ -12,6 +12,7 @@ namespace Application.Interfaces
     {
         IEnumerable<OfferDto> GetAllOffers();
         OfferDto GetOfferById(int id);
+        OfferDto AddOffer(CreateOfferDto offer);
 
     }
 }

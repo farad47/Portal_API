@@ -1,6 +1,8 @@
-﻿using Application.Interfaces;
+﻿using Application.Dto;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace JobPortalAPI.Controllers
 {
@@ -18,6 +20,13 @@ namespace JobPortalAPI.Controllers
         {
             var offers = _offerService.GetAllOffers();
             return Ok(offers);
+        }
+        [SwaggerOperation(Summary = "Stwórz nową ofertę pracy")]
+        [HttpPost]
+        public IActionResult Add(CreateOfferDto newOffer)
+        {
+            var offer = _offerService.AddOffer(newOffer);
+            return Ok(offer);
         }
     }
 }

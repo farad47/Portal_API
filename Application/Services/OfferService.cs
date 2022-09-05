@@ -1,6 +1,7 @@
 ﻿using Application.Dto;
 using Application.Interfaces;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,16 @@ namespace Application.Services
         public OfferDto GetOfferById(int id)
         {
             var offer = _offerRepository.GetById(id);
+            return _mapper.Map<OfferDto>(offer);
+        }
+        public OfferDto AddOffer(CreateOfferDto newOffer)
+        {
+            if (newOffer is null)
+            {
+                throw new Exception("Wypełnij wszystkie pola oferty");
+            }
+            var offer = _mapper.Map<Offer>(newOffer);
+            _offerRepository.Add(offer);
             return _mapper.Map<OfferDto>(offer);
         }
     }

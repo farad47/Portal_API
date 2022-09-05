@@ -26,7 +26,12 @@ namespace Infrastructure.Repositories
         }
         public Offer Add(Offer offer)
         {
-            throw new NotImplementedException();
+            var company = _context.Company.SingleOrDefault(x => x.CompanyId == offer.CompanyName.CompanyId);
+            offer.CompanyName = company;
+            offer.CreatedBy = "Admin";
+            _context.Offer.Add(offer);
+            _context.SaveChanges();
+            return offer; 
         }
         public void Update(Offer offer)
         {

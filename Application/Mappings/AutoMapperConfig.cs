@@ -15,6 +15,8 @@ namespace Application.Mappings
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Offer, OfferDto>();
+                cfg.CreateMap<CreateOfferDto, Offer>().ForPath(x => x.CompanyName.CompanyId, m => m.MapFrom(s => s.CompanyId));
             }).CreateMapper();
     }
 }
+//.ForMember(x => x.CompanyName.CompanyId, m => m.MapFrom(s => s.CompanyId));
