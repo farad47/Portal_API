@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.Offer;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -33,13 +33,21 @@ namespace Application.Services
         }
         public OfferDto AddOffer(CreateOfferDto newOffer)
         {
-            if (newOffer is null)
-            {
-                throw new Exception("Wypełnij wszystkie pola oferty");
-            }
             var offer = _mapper.Map<Offer>(newOffer);
             _offerRepository.Add(offer);
             return _mapper.Map<OfferDto>(offer);
+        }
+        public void UpdateOffer(UpdateOfferDto UpdateOffer)
+        {
+            var existingOffer = _offerRepository.GetById(UpdateOffer.OfferId);
+            var offer = _mapper.Map(UpdateOffer, existingOffer);
+            _offerRepository.Update(offer);
+
+        }
+        public void DeleteOffer(int id)
+        {
+            var offer = _offerRepository.GetById(id);
+            _offerRepository.Delete(offer);
         }
     }
 }

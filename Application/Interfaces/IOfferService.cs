@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.Offer;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace Application.Interfaces
         IEnumerable<OfferDto> GetAllOffers();
         OfferDto GetOfferById(int id);
         OfferDto AddOffer(CreateOfferDto offer);
+        void UpdateOffer(UpdateOfferDto offer);
+        void DeleteOffer(int id);
 
     }
 }

@@ -1,4 +1,4 @@
-﻿using Application.Dto;
+﻿using Application.Dto.Offer;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,18 +15,44 @@ namespace JobPortalAPI.Controllers
         {
             _offerService = offerService;
         }
+        [SwaggerOperation(Summary = "Pobierz wszystkie oferty pracy.")]
         [HttpGet]
         public IActionResult Get()
         {
             var offers = _offerService.GetAllOffers();
             return Ok(offers);
         }
+        [SwaggerOperation(Summary = "Pobierz ofertę pracy o unikalnym id.")]
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var offer = _offerService.GetOfferById(id);
+            if (offer is null)
+            {
+                return NotFound();
+            }
+            return Ok(offer);
+        }
         [SwaggerOperation(Summary = "Stwórz nową ofertę pracy")]
         [HttpPost]
         public IActionResult Add(CreateOfferDto newOffer)
         {
             var offer = _offerService.AddOffer(newOffer);
-            return Ok(offer);
+            return Created($"Offer/{ offer.OfferId}",offer);
+        }
+        [SwaggerOperation(Summary = "Edytuj ofertę pracy.")]
+        [HttpPut]
+        public IActionResult Update(UpdateOfferDto UpdateOffer)
+        {
+            _offerService.UpdateOffer(UpdateOffer);
+            return NoContent();
+        }
+        [SwaggerOperation(Summary = "Usuń ofertę pracy.")]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _offerService.DeleteOffer(id);
+            return NoContent();
         }
     }
 }

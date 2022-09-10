@@ -35,11 +35,15 @@ namespace Infrastructure.Repositories
         }
         public void Update(Offer offer)
         {
-            throw new NotImplementedException();
+            offer.LastModified = DateTime.UtcNow;
+            offer.ModifiedBy = "Uzytkownik";
+            _context.Update(offer);
+            _context.SaveChanges();
         }
         public void Delete(Offer offer)
         {
-            throw new NotImplementedException();
+            _context.Offer.Remove(offer);
+            _context.SaveChanges();
         }
     }
 }
