@@ -25,14 +25,14 @@ namespace JobPortalAPI.Controllers
         }
         [SwaggerOperation(Summary = "Dodaj firmę.")]
         [HttpPost]
-        public IActionResult Add(AddCompanyDto newCompany)
+        public IActionResult Add([FromBody] AddCompanyDto newCompany)
         {
             var company = _companyService.AddCompany(newCompany);
             return Created($"Company/{ company.CompanyId }", company);
         }
         [SwaggerOperation(Summary = "Usuń ofertę pracy.")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute]int id)
         {
             _companyService.DeleteCompany(id);
             return NoContent();

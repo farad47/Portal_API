@@ -24,7 +24,7 @@ namespace JobPortalAPI.Controllers
         }
         [SwaggerOperation(Summary = "Pobierz ofertę pracy o unikalnym id.")]
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get([FromRoute] int id)
         {
             var offer = _offerService.GetOfferById(id);
             if (offer is null)
@@ -35,21 +35,21 @@ namespace JobPortalAPI.Controllers
         }
         [SwaggerOperation(Summary = "Stwórz nową ofertę pracy")]
         [HttpPost]
-        public IActionResult Add(CreateOfferDto newOffer)
+        public IActionResult Add([FromBody] CreateOfferDto newOffer)
         {
             var offer = _offerService.AddOffer(newOffer);
             return Created($"Offer/{ offer.OfferId}",offer);
         }
         [SwaggerOperation(Summary = "Edytuj ofertę pracy.")]
         [HttpPut]
-        public IActionResult Update(UpdateOfferDto UpdateOffer)
+        public IActionResult Update([FromBody] UpdateOfferDto UpdateOffer)
         {
             _offerService.UpdateOffer(UpdateOffer);
             return NoContent();
         }
         [SwaggerOperation(Summary = "Usuń ofertę pracy.")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
             _offerService.DeleteOffer(id);
             return NoContent();
