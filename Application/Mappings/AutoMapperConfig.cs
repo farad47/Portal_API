@@ -1,4 +1,5 @@
-﻿using Application.Dto.Offer;
+﻿using Application.Dto.CompanyDto;
+using Application.Dto.Offer;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -17,6 +18,8 @@ namespace Application.Mappings
                 cfg.CreateMap<Offer, OfferDto>();
                 cfg.CreateMap<CreateOfferDto, Offer>().ForPath(x => x.CompanyName.CompanyId, m => m.MapFrom(s => s.CompanyId));
                 cfg.CreateMap<UpdateOfferDto, Offer>();
+                cfg.CreateMap<Company, CompanyDto>();
+                cfg.CreateMap<AddCompanyDto, Company>();
             }).CreateMapper();
     }
 }
